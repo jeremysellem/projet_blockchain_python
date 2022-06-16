@@ -1,10 +1,10 @@
-CPPFLAGS += -I /usr/include/python3.9 
-CPPFLAGS += -std=c++11
-LIBS=`python3.9-config --ldflags` -L cryptopp -l cryptopp
-COMPOSANT =  decrypt
+CPPFLAGS += -I /usr/include/python3.7m
+LIBS=-lpython3.7m 
+
+COMPOSANT = comp_decrypt_ecies
 
 LIBSO = ${COMPOSANT}.so
-LIBSO_OBJS = ${COMPOSANT}.o micro-ecc/uECC.o 
+LIBSO_OBJS = ${COMPOSANT}.o
 
 include ../gcc.mk
 include ../pybind11.mk
