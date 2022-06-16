@@ -2,9 +2,11 @@
 	path = pybind11
 	url = https://github.com/pybind/pybind11
 	branch = stable
-[submodule "json"]
-	path = json
-	url = https://github.com/nlohmann/json.git
-[submodule "pybind11_json"]
-	path = pybind11_json
-	url = https://github.com/pybind/pybind11_json.git
+[submodule "comp_decrypt_ecies/micro-ecc"]
+ 	path = comp_decrypt_ecies/micro-ecc
+ 	url = https://github.com/jluuM2/micro-ecc
+ 	branch = master
+[submodule "comp_decrypt_ecies/cryptopp"]
+ 	path = comp_decrypt_ecies/cryptopp
+ 	url = https://github.com/weidai11/cryptopp
+ 	branch = master
