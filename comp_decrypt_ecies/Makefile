@@ -1,10 +1,11 @@
-CPPFLAGS += -I /usr/include/python3.7m
-LIBS=-lpython3.7m 
+CPPFLAGS += -I /usr/include/python3.9
+LIBS=-lpython3.9
 
-COMPOSANT = comp_decrypt_ecies
+COMPOSANT = decrypt
 
+LIB_ECC = micro-ecc/uECC
 LIBSO = ${COMPOSANT}.so
-LIBSO_OBJS = ${COMPOSANT}.o
+LIBSO_OBJS = ${COMPOSANT}.o ${LIB_ECC}.o
 
 include ../gcc.mk
 include ../pybind11.mk
