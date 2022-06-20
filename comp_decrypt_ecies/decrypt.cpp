@@ -25,6 +25,8 @@ class Decrypt {
         ECIES < ECP > ::PrivateKey privateKey;
         ECIES < ECP > ::PublicKey publicKey;
         ECIES < ECP > ::Encryptor e0;
+        std::string em0; // Encrypted message
+        std::string dm0; // Decrypted message
     
     public:
         Decrypt() {}
@@ -82,7 +84,6 @@ class Decrypt {
             plaintext = em;
             LoadPublicKey(e0.AccessPublicKey(), DecryptorfilePublic);
             e0.GetPublicKey().ThrowIfInvalid(prng, 3);
-            std::string em0;
             StringSource ss1(plaintext, true, new PK_EncryptorFilter(prng, e0, new StringSink(em0)));
             std::string em0Hex;
             StringSource ss3(em0, true, new HexEncoder(new StringSink(em0Hex)));
@@ -96,7 +97,15 @@ class Decrypt {
             std::cout << std::endl;
             std::cout << "Encrypted Message (HexEncoder) : " << em0Hex << std::endl;
     	}
+    
+        void DecryptText(){
+            ECIES < ECP > ::Decryptor d0(privateKey);
+            
+            StringSource ss2(em0, true, new PK_DecryptorFilter(prng, d0, new StringSink(dm0)));
+            plaintext = dm0;
 
+            std::cout << "Decrypted Message : " << dm0 << std::endl;
+        }
 
         void encrypt_decrypt(std::string em) {
             using namespace CryptoPP; //Utilisation de la librairie CryptoPP
@@ -166,5 +175,6 @@ PYBIND11_MODULE(decrypt, greetings) {
         .def("SavePublicKey", & Decrypt::SavePublicKey)
         .def("SavePriavteKey", & Decrypt::SavePrivateKey)
     	.def("GenerateKeys", & Decrypt::Generate_keys)
-    	.def("Encrypt", & Decrypt::Encrypt);
+    	.def("Encrypt", & Decrypt::Encrypt)
+        .def("DecryptText", & Decrypt::DecryptText);
 }
