@@ -1,39 +1,25 @@
 #include <pybind11/pybind11.h>
-
 #include "micro-ecc/uECC.h"
-
 #include "cryptopp/eccrypto.h"
-
 #include "cryptopp/base64.h"
-
 #include "cryptopp/filters.h"
-
 #include "cryptopp/rsa.h"
-
 #include "cryptopp/cryptlib.h"
-
 #include "cryptopp/poly1305.h"
-
 #include "cryptopp/osrng.h"
-
 #include "cryptopp/aes.h"
-
 #include "cryptopp/hex.h"
-
 #include "cryptopp/integer.h"
-
 #include "cryptopp/oids.h"
-
 #include "cryptopp/files.h"
-
 #include <iostream>
 
-class Chiffrage {
+class Decrypt {
     private:
         std::string plaintext;
     std::string encryptedtext;
     public:
-        Chiffrage() {}~Chiffrage() {}
+        Decrypt() {}~Decrypt() {}
 
     const std::string & getPlaintext() const {
         return plaintext;
@@ -127,11 +113,11 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(decrypt, greetings) {
     greetings.doc() = "decrypt 1.0";
-    py::class_ < Chiffrage > (greetings, "Chiffrage", py::dynamic_attr())
+    py::class_ < Decrypt > (greetings, "Decrypt", py::dynamic_attr())
         .def(py::init())
-        .def("encrypt_decrypt", & Chiffrage::encrypt_decrypt)
-        .def("LoadPublicKey", & Chiffrage::LoadPublicKey)
-        .def("LoadPrivateKey", & Chiffrage::LoadPrivateKey)
-        .def("SavePublicKey", & Chiffrage::SavePublicKey)
-        .def("SavePriavteKey", & Chiffrage::SavePrivateKey);
+        .def("encrypt_decrypt", & Decrypt::encrypt_decrypt)
+        .def("LoadPublicKey", & Decrypt::LoadPublicKey)
+        .def("LoadPrivateKey", & Decrypt::LoadPrivateKey)
+        .def("SavePublicKey", & Decrypt::SavePublicKey)
+        .def("SavePriavteKey", & Decrypt::SavePrivateKey);
 }
