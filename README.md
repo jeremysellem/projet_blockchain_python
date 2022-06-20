@@ -34,15 +34,17 @@ Pour utiliser
 python3
 >>> import decrypt
 >>> a = decrypt.Decrypt()
->>> a.encrypt_decrypt("Message")
-Encrypted Message : H[3j)*pI y
-c']0:EoC}
-         61m$bGPD*-{P,
-Da4'
-Encrypted Message (std::hex) : 4ffffffcf48ffffffa95bffffff9efffffff4ffffffbc1833fffffff9ffffffb36affffffdaffffffd7ffffffefffffffb7ffffffd629ffffffe92a70ffffffc94920ffffffa279a1363ffffffccffffffe60ffffffc6275d7ffffffa2fffffffcffffffc630ffffffd03a451b1678617ffffff99ffffff9cffffffbaffffffea6f437dcffffffe61736317f6d24ffffffd762ffffffa7ffffff8f47ffffff91ffffffdd1150442a2d7b50ffffff9bffffffecfffffff5ffffffd92cffffffbba4461ffffff97ffffffee341f27
-Encrypted Message (HexEncoder) : 04CF48A95B9EF4BC1833F9B36ADAD7EFB7D629E92A70C94920A2790A1363CCE600C6275D07A2FCC630D03A451B16780617999CBAEA6F437D0CE61736317F6D24D762A78F4791DD1150442A2D7B509BECF5D92CBB0A446197EE341F27
-Decrypted Message : Message
+>>> a.GenerateKeys()
+>>> a.Encrypt("hello")
+Plain text Message : hello
+Encrypted Message : X8-iR+hPtYn#i,*$!ul;+Pd))[2"QVO1"CP
+z
+Encrypted Message (std::hex) : 45838ffffffaaffffffa4fffffffeffffffabffffff82ffffff822dffffff8969fffffffbe522b68fffffff4ffffffb2ffffffe2ffffffde5074596e23692cffffffd3ffffffe1ffffffb6ffffffe7f2affffff822421ffffffb075ffffffe66cffffff89ffffffbfffffffd5fffffffb1affffff9313bffffffb62bffffff8bffffffb75064ffffffcc292945bffffff9dffffffd3ffffffeeffffffdc32ffffffe9ffffff940fffffffaffffffe32251fffffff4ffffffe9ffffff9156ffffff92ffffffb14f312243ffffff8d50ffffff8daffffffb97affffffd7f
+Encrypted Message (HexEncoder) : 045838AAA4FEAB82822D89690FBE522B68F4B2E2DE5074596E23692CD3E1B6E70F2A822421B075E66C89BFD5FB1A93013BB62B8BB75064CC2929045B9DD3EEDC32E99400FAE32251F4E9915692B14F3122438D508D0AB97AD70F
+>>> a.DecryptText()
+Decrypted Message : hello
 >>> 
+
 ```
 
 * Google Cloud token : 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
