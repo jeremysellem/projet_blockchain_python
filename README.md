@@ -33,11 +33,15 @@ Pour utiliser
 ```
 python3
 >>> import decrypt
->>> a = decrypt.Chiffrage()
->>> a.encrypt_decrypt("Hello ca va")
-Encrypted Message (std::hex) : 4ffffffbcffffffd2ffffffbaffffffd0ffffff98ffffffbdffffffcd2dffffffd0ffffff8b38ffffffa8ffffffda6d7e164effffffd1fffffff3166136d78ffffffa5ffffffb4ffffffdfffffffe670fffffff12144fffffff91effffff83767cffffffc7ffffffdc2b78ffffffaeffffffaa7b3bffffff83fffffff67fffffffb2ffffffca757bffffffe9ffffffea20ffffffe5ffffffafffffffdbffffffe7ffffffe2ffffffe41f4428ffffffa9ffffff8215ffffffac2228ffffff8c7bffffff906dffffff8e61ffffffebfffffff6ffffffb53b7a6f4a6fcffffff904b910fffffff71273efffffff652
-Encrypted Message (HexEncoder) : 04BCD2BAD098BDCD2DD08B38A8DA6D7E164ED1F30166136D78A5B4DFE670F12144F91E83767CC7DC2B78AEAA7B3B83F67FB2CA757BE9EA20E5AFDBE7E2E41F4428A98215AC22288C7B906D8E61EBF6B53B7A6F4A6F0C904B0910F701273EF652
-Decrypted Message : Hello ca va
+>>> a = decrypt.Decrypt()
+>>> a.encrypt_decrypt("Message")
+Encrypted Message : H[3j)*pI y
+c']0:EoC}
+         61m$bGPD*-{P,
+Da4'
+Encrypted Message (std::hex) : 4ffffffcf48ffffffa95bffffff9efffffff4ffffffbc1833fffffff9ffffffb36affffffdaffffffd7ffffffefffffffb7ffffffd629ffffffe92a70ffffffc94920ffffffa279a1363ffffffccffffffe60ffffffc6275d7ffffffa2fffffffcffffffc630ffffffd03a451b1678617ffffff99ffffff9cffffffbaffffffea6f437dcffffffe61736317f6d24ffffffd762ffffffa7ffffff8f47ffffff91ffffffdd1150442a2d7b50ffffff9bffffffecfffffff5ffffffd92cffffffbba4461ffffff97ffffffee341f27
+Encrypted Message (HexEncoder) : 04CF48A95B9EF4BC1833F9B36ADAD7EFB7D629E92A70C94920A2790A1363CCE600C6275D07A2FCC630D03A451B16780617999CBAEA6F437D0CE61736317F6D24D762A78F4791DD1150442A2D7B509BECF5D92CBB0A446197EE341F27
+Decrypted Message : Message
 >>> 
 ```
 
