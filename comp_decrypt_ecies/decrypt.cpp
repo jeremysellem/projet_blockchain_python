@@ -106,61 +106,6 @@ class Decrypt {
 
             std::cout << "Decrypted Message : " << dm0 << std::endl;
         }
-
-        void encrypt_decrypt(std::string em) {
-            using namespace CryptoPP; //Utilisation de la librairie CryptoPP
-            AutoSeededRandomPool prng;
-            std::string message = em;
-            encryptedtext = em;
-            /////////////////////////////////////////////////
-            // Part one - generate keys
-            ECIES < ECP > ::PrivateKey privateKey;
-            ECIES < ECP > ::PublicKey publicKey;
-
-            // Curve Key Generation
-            privateKey.Initialize(prng, ASN1::secp256k1()); //Generation courbe ECIES
-            privateKey.MakePublicKey(publicKey); //Generation cle publique
-            const std::string & DecryptorfilePublic = "ECIES_PublicKey.key"; //Chemin vers le fichier de stockage de la cle publique
-            const std::string & DecryptorfilePrivate = "ECIES_PrivateKey.key"; //Chemin vers le fichier de stockage de la cle prive
-            SavePublicKey(publicKey, DecryptorfilePublic); //Sauvegarde cle publique
-            SavePrivateKey(privateKey, DecryptorfilePrivate); //Sauvegarde cle privee
-
-            /////////////////////////////////////////////////
-            // Part two - encrypt
-
-            ECIES < ECP > ::Encryptor e0;
-            LoadPublicKey(e0.AccessPublicKey(), DecryptorfilePublic);
-            e0.GetPublicKey().ThrowIfInvalid(prng, 3);
-            //ECIES<ECP>::Encryptor e0(publicKey);
-            //ECIES<ECP>::Encryptor e0(d0);
-            //PrintPublicKey(e0.GetKey());
-            std::string em0; // encrypted message
-            StringSource ss1(message, true, new PK_EncryptorFilter(prng, e0, new StringSink(em0)));
-            std::string em0Hex;
-            StringSource ss3(em0, true, new HexEncoder(new StringSink(em0Hex)));
-
-            std::cout << "Encrypted Message : " << std::hex << em0 << std::endl;
-            std::cout << "Encrypted Message (std::hex) : ";
-            for (const auto & item: em0) {
-                std::cout << std::hex << int(item);
-            }
-            std::cout << std::endl;
-            std::cout << "Encrypted Message (HexEncoder) : " << em0Hex << std::endl;
-
-            /////////////////////////////////////////////////
-            // Part three - decrypt
-
-            ECIES < ECP > ::Decryptor d0(privateKey);
-            //ECIES<ECP>::Decryptor d0(prng, ASN1::secp256k1());
-            //PrintPrivateKey(d0.GetKey());
-
-            std::string dm0; // decrypted message
-            StringSource ss2(em0, true, new PK_DecryptorFilter(prng, d0, new StringSink(dm0)));
-            plaintext = dm0;
-
-            std::cout << "Decrypted Message : " << dm0 << std::endl;
-        }
-
 };
 
 namespace py = pybind11;
@@ -169,7 +114,6 @@ PYBIND11_MODULE(decrypt, greetings) {
     greetings.doc() = "decrypt 1.0";
     py::class_ < Decrypt > (greetings, "Decrypt", py::dynamic_attr())
         .def(py::init())
-        .def("encrypt_decrypt", & Decrypt::encrypt_decrypt)
         .def("LoadPublicKey", & Decrypt::LoadPublicKey)
         .def("LoadPrivateKey", & Decrypt::LoadPrivateKey)
         .def("SavePublicKey", & Decrypt::SavePublicKey)
