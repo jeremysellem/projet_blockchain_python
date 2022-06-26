@@ -18,6 +18,7 @@ using namespace CryptoPP;
 class Decrypt {
     private:
         std::string encryptedtext;
+	std::string PrivateKeyString;
         std::string plaintext;
         std::string DecryptorfilePublic = "ECIES_PublicKey.key"; //Chemin vers le fichier de stockage de la cle publique
         std::string DecryptorfilePrivate = "ECIES_PrivateKey.key"; //Chemin vers le fichier de stockage de la cle privee
@@ -89,7 +90,7 @@ class Decrypt {
     
         void PrintPrivateKey(){
 		// Group parameters
-		key = GetPrivateKey;
+		ECIES < ECP > :: PrivateKey key = GetPrivateKey();
     		const DL_GroupParameters_EC<ECP>& params = key.GetGroupParameters();
     		// Base precomputation (for public key calculation from private key)
     		const DL_FixedBasePrecomputation<ECPPoint>& bpc = params.GetBasePrecomputation();
@@ -113,6 +114,7 @@ class Decrypt {
 
     		std::cout << "Private Exponent (multiplicand): " << std::endl;
     		std::cout << "  " << std::hex << key.GetPrivateExponent() << std::endl;
+		//PrivateKeyString = key.GetPrivateExponent();
 	}
 };
 
