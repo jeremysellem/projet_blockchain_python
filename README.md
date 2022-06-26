@@ -35,15 +35,21 @@ python3
 >>> import decrypt
 >>> a = decrypt.Decrypt()
 >>> a.GenerateKeys()
->>> a.Encrypt("hello")
-Plain text Message : hello
-Encrypted Message : X8-iR+hPtYn#i,*$!ul;+Pd))[2"QVO1"CP
-z
-Encrypted Message (std::hex) : 45838ffffffaaffffffa4fffffffeffffffabffffff82ffffff822dffffff8969fffffffbe522b68fffffff4ffffffb2ffffffe2ffffffde5074596e23692cffffffd3ffffffe1ffffffb6ffffffe7f2affffff822421ffffffb075ffffffe66cffffff89ffffffbfffffffd5fffffffb1affffff9313bffffffb62bffffff8bffffffb75064ffffffcc292945bffffff9dffffffd3ffffffeeffffffdc32ffffffe9ffffff940fffffffaffffffe32251fffffff4ffffffe9ffffff9156ffffff92ffffffb14f312243ffffff8d50ffffff8daffffffb97affffffd7f
-Encrypted Message (HexEncoder) : 045838AAA4FEAB82822D89690FBE522B68F4B2E2DE5074596E23692CD3E1B6E70F2A822421B075E66C89BFD5FB1A93013BB62B8BB75064CC2929045B9DD3EEDC32E99400FAE32251F4E9915692B14F3122438D508D0AB97AD70F
->>> a.DecryptText()
-Decrypted Message : hello
->>> 
+>>> a.PrintPrivateKey()
+Modulus: fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2fh
+Cofactor: 1h
+Coefficients
+  A: 0h
+  B: 7h
+Base Point
+  x: 79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798h
+  y: 483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8h
+Public Point
+  x: f49e3ab38ed819cb9a190f39a18583c5f04868a4a384e7a9c29bbb29297f212bh
+  y: 8700dfa3e3904089d1b071a8e4e6540c117fe597e92036eaee079fe2d557332dh
+Private Exponent (multiplicand): 
+  9b80bd06fd91a9bf3a1e16f3e4a25bd2500c8f8f45ca248bfebd03b2e3609cdfh
+>>> quit()
 
 ```
 
