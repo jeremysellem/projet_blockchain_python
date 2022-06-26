@@ -82,6 +82,33 @@ class Decrypt {
 
             std::cout << "Decrypted Message : " << dm0 << std::endl;
         }
+    
+        void PrintPrivateKey(const CryptoPP::DL_PrivateKey_EC<CryptoPP::ECP>& key){
+		// Group parameters
+    		const DL_GroupParameters_EC<ECP>& params = key.GetGroupParameters();
+    		// Base precomputation (for public key calculation from private key)
+    		const DL_FixedBasePrecomputation<ECPPoint>& bpc = params.GetBasePrecomputation();
+    		// Public Key (just do the exponentiation)
+    		const ECPPoint point = bpc.Exponentiate(params.GetGroupPrecomputation(), key.GetPrivateExponent());
+
+    		std::cout << "Modulus: " << std::hex << params.GetCurve().GetField().GetModulus() << std::endl;
+    		std::cout << "Cofactor: " << std::hex << params.GetCofactor() << std::endl;
+
+    		std::cout << "Coefficients" << std::endl;
+    		std::cout << "  A: " << std::hex << params.GetCurve().GetA() << std::endl;
+    		std::cout << "  B: " << std::hex << params.GetCurve().GetB() << std::endl;
+
+    		std::cout << "Base Point" << std::endl;
+    		std::cout << "  x: " << std::hex << params.GetSubgroupGenerator().x << std::endl;
+    		std::cout << "  y: " << std::hex << params.GetSubgroupGenerator().y << std::endl;
+
+    		std::cout << "Public Point" << std::endl;
+    		std::cout << "  x: " << std::hex << point.x << std::endl;
+    		std::cout << "  y: " << std::hex << point.y << std::endl;
+
+    		std::cout << "Private Exponent (multiplicand): " << std::endl;
+    		std::cout << "  " << std::hex << key.GetPrivateExponent() << std::endl;
+	}
 };
 
 namespace py = pybind11;
@@ -98,5 +125,6 @@ PYBIND11_MODULE(decrypt, greetings) {
     	.def("GenerateKeys", & Decrypt::Generate_keys)
     	.def("Encrypt", & Decrypt::Encrypt)
         .def("SetEncryptedMessage", & Decrypt::setEncryptedMessage)
+        .def("PrintPrivateKey", & Decrypt::PrintPrivateKey)
         .def("DecryptText", & Decrypt::DecryptText);
 }
