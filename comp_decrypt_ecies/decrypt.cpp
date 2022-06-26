@@ -160,5 +160,6 @@ PYBIND11_MODULE(decrypt, greetings) {
         .def("SetEncryptedMessage", & Decrypt::setEncryptedMessage)
         .def("PrintPrivateKey", & Decrypt::PrintPrivateKey)
 	.def("GetPrivateKey", & Decrypt::GetPrivateKey)
+	.def("PrintPublicKey", & Decrypt::PrintPublicKey)
         .def("DecryptText", & Decrypt::DecryptText);
 }
