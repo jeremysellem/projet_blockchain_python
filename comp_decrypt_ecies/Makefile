@@ -1,6 +1,6 @@
-CPPFLAGS += -I /usr/include/python3.9
+CPPFLAGS += -I /usr/include/python3.7m
 CPPFLAGS += -std=c++11
-LIBS=`python3.9-config --ldflags` -L cryptopp -l cryptopp
+LIBS=`python3.7m-config --ldflags` -L cryptopp -l cryptopp
 COMPOSANT = decrypt
 
 LIBSO = ${COMPOSANT}.so
