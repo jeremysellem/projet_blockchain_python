@@ -87,8 +87,9 @@ class Decrypt {
             std::cout << "Decrypted Message : " << dm0 << std::endl;
         }
     
-        void PrintPrivateKey(const CryptoPP::DL_PrivateKey_EC<CryptoPP::ECP>& key){
+        void PrintPrivateKey(){
 		// Group parameters
+		key = GetPrivateKey;
     		const DL_GroupParameters_EC<ECP>& params = key.GetGroupParameters();
     		// Base precomputation (for public key calculation from private key)
     		const DL_FixedBasePrecomputation<ECPPoint>& bpc = params.GetBasePrecomputation();
