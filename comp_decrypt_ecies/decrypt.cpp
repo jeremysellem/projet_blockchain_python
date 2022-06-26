@@ -74,7 +74,7 @@ class Decrypt {
             SavePrivateKey(privateKey, DecryptorfilePrivate); //Sauvegarde cle privee
     	}
 	
-	ECIES < ECP > ::PrivateKey GetPrivateKey(){
+	ECIES < ECP > ::PrivateKey & GetPrivateKey(){
 		return privateKey;
 	}
 
