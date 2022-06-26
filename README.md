@@ -45,11 +45,20 @@ Base Point
   x: 79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798h
   y: 483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8h
 Public Point
-  x: f49e3ab38ed819cb9a190f39a18583c5f04868a4a384e7a9c29bbb29297f212bh
-  y: 8700dfa3e3904089d1b071a8e4e6540c117fe597e92036eaee079fe2d557332dh
+  x: 6f5bc72efafd500d0f738b238a468765e62c916315f43b87c7c32e8a581fd66ah
+  y: 4846ece5e5f59d8ab07d7525f75bc593675130d7821094ae99bd094bf4c5724dh
 Private Exponent (multiplicand): 
-  9b80bd06fd91a9bf3a1e16f3e4a25bd2500c8f8f45ca248bfebd03b2e3609cdfh
->>> quit()
+  829148574f6d17b772395032c2e0f8cfc998cae838708acc9e428f2001ad946bh
+>>> 
+KeyboardInterrupt
+>>> b = "829148574f6d17b772395032c2e0f8cfc998cae838708acc9e428f2001ad946b"
+>>> b = int(b, 16)
+>>> from coincurve import PrivateKey
+>>> k1 = PrivateKey.from_int(b)
+>>> pkey = k1.public_key.format(False).hex()
+>>> print(pkey)
+046f5bc72efafd500d0f738b238a468765e62c916315f43b87c7c32e8a581fd66a4846ece5e5f59d8ab07d7525f75bc593675130d7821094ae99bd094bf4c5724d
+>>> 
 
 ```
 
