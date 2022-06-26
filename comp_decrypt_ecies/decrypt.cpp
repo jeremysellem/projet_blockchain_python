@@ -73,6 +73,10 @@ class Decrypt {
             SavePublicKey(publicKey, DecryptorfilePublic); //Sauvegarde cle publique
             SavePrivateKey(privateKey, DecryptorfilePrivate); //Sauvegarde cle privee
     	}
+	
+	ECIES < ECP > ::PrivateKey GetPrivateKey(){
+		return privateKey;
+	}
 
         void DecryptText(){
             ECIES < ECP > ::Decryptor d0(privateKey);
@@ -124,5 +128,6 @@ PYBIND11_MODULE(decrypt, greetings) {
     	.def("GenerateKeys", & Decrypt::Generate_keys)
         .def("SetEncryptedMessage", & Decrypt::setEncryptedMessage)
         .def("PrintPrivateKey", & Decrypt::PrintPrivateKey)
+	.def("GetPrivateKey", & Decrypt::GetPrivateKey)
         .def("DecryptText", & Decrypt::DecryptText);
 }
