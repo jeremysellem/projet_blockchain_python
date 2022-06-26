@@ -18,6 +18,7 @@ using namespace CryptoPP;
 class Decrypt {
     private:
         std::string encryptedtext;
+        std::string plaintext;
         std::string DecryptorfilePublic = "ECIES_PublicKey.key"; //Chemin vers le fichier de stockage de la cle publique
         std::string DecryptorfilePrivate = "ECIES_PrivateKey.key"; //Chemin vers le fichier de stockage de la cle privee
         AutoSeededRandomPool prng;
