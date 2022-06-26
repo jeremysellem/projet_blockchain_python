@@ -17,7 +17,6 @@ using namespace CryptoPP;
 
 class Decrypt {
     private:
-        std::string plaintext;
         std::string encryptedtext;
         std::string DecryptorfilePublic = "ECIES_PublicKey.key"; //Chemin vers le fichier de stockage de la cle publique
         std::string DecryptorfilePrivate = "ECIES_PrivateKey.key"; //Chemin vers le fichier de stockage de la cle privee
@@ -32,12 +31,8 @@ class Decrypt {
         Decrypt() {}
         ~Decrypt() {}
 
-        const std::string & getPlaintext() const {
-            return plaintext;
-        }
-
         const std::string & getEncryptedText() const {
-            return encryptedtext;;
+            return encryptedtext;
         }
 
         const std::string & getPublicFile()const{
@@ -46,6 +41,10 @@ class Decrypt {
 
         const std::string & getPrivateFile() const{
         	return DecryptorfilePrivate;
+        }
+        
+        void setEncryptedMessage(std::string message){
+            em0 = message;
         }
 
         void SavePrivateKey(const CryptoPP::PrivateKey & key,
@@ -66,12 +65,6 @@ class Decrypt {
             key.Load(source);
         }
 
-        void LoadPublicKey(CryptoPP::PublicKey & key,
-            const std::string & file) {
-            CryptoPP::FileSource source(file.c_str(), true);
-            key.Load(source);
-        }
-
         void Generate_keys(){
             // Curve Key Generation
             privateKey.Initialize(prng, ASN1::secp256k1()); //Generation courbe ECIES
@@ -80,24 +73,6 @@ class Decrypt {
             SavePrivateKey(privateKey, DecryptorfilePrivate); //Sauvegarde cle privee
     	}
 
-        void Encrypt(std::string em){
-            plaintext = em;
-            LoadPublicKey(e0.AccessPublicKey(), DecryptorfilePublic);
-            e0.GetPublicKey().ThrowIfInvalid(prng, 3);
-            StringSource ss1(plaintext, true, new PK_EncryptorFilter(prng, e0, new StringSink(em0)));
-            std::string em0Hex;
-            StringSource ss3(em0, true, new HexEncoder(new StringSink(em0Hex)));
-
-            std::cout << "Plain text Message : " << plaintext << std::endl;
-            std::cout << "Encrypted Message : " << std::hex << em0 << std::endl;
-            std::cout << "Encrypted Message (std::hex) : ";
-            for (const auto & item: em0) {
-                std::cout << std::hex << int(item);
-            }
-            std::cout << std::endl;
-            std::cout << "Encrypted Message (HexEncoder) : " << em0Hex << std::endl;
-    	}
-    
         void DecryptText(){
             ECIES < ECP > ::Decryptor d0(privateKey);
             
@@ -115,10 +90,12 @@ PYBIND11_MODULE(decrypt, greetings) {
     py::class_ < Decrypt > (greetings, "Decrypt", py::dynamic_attr())
         .def(py::init())
         .def("LoadPublicKey", & Decrypt::LoadPublicKey)
+        .def("GetPublicFile", & Decrypt::getPublicFile)
         .def("LoadPrivateKey", & Decrypt::LoadPrivateKey)
         .def("SavePublicKey", & Decrypt::SavePublicKey)
         .def("SavePriavteKey", & Decrypt::SavePrivateKey)
     	.def("GenerateKeys", & Decrypt::Generate_keys)
     	.def("Encrypt", & Decrypt::Encrypt)
+        .def("SetEncryptedMessage", & Decrypt::setEncryptedMessage)
         .def("DecryptText", & Decrypt::DecryptText);
 }
