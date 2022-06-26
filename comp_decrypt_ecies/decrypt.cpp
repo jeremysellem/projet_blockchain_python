@@ -78,6 +78,10 @@ class Decrypt {
 	ECIES < ECP > ::PrivateKey & GetPrivateKey(){
 		return privateKey;
 	}
+	
+	ECIES < ECP > ::PublicKey & GetPublicKey(){
+		return publicKey;
+	}
 
         void DecryptText(){
             ECIES < ECP > ::Decryptor d0(privateKey);
@@ -115,6 +119,30 @@ class Decrypt {
     		std::cout << "Private Exponent (multiplicand): " << std::endl;
     		std::cout << "  " << std::hex << key.GetPrivateExponent() << std::endl;
 		//PrivateKeyString = key.GetPrivateExponent();
+	}
+	
+	void PrintPublicKey()
+	{
+		// Group parameters
+		ECIES < ECP > :: PublicKey key = GetPublicKey()
+    		const DL_GroupParameters_EC<ECP>& params = key.GetGroupParameters();
+    		// Public key
+    		const ECPPoint& point = key.GetPublicElement();
+    
+   		std::cout << "Modulus: " << std::hex << params.GetCurve().GetField().GetModulus() << std::endl;
+    		std::cout << "Cofactor: " << std::hex << params.GetCofactor() << std::endl;
+    
+    		std::cout << "Coefficients" << std::endl;
+    		std::cout << "  A: " << std::hex << params.GetCurve().GetA() << std::endl;
+    		std::cout << "  B: " << std::hex << params.GetCurve().GetB() << std::endl;
+    
+    		std::cout << "Base Point" << std::endl;
+    		std::cout << "  x: " << std::hex << params.GetSubgroupGenerator().x << std::endl;
+    		std::cout << "  y: " << std::hex << params.GetSubgroupGenerator().y << std::endl;
+    
+   		std::cout << "Public Point" << std::endl;
+    		std::cout << "  x: " << std::hex << point.x << std::endl;
+    		std::cout << "  y: " << std::hex << point.y << std::endl;	
 	}
 };
 
