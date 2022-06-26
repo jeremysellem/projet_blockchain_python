@@ -13,12 +13,15 @@
 #include "cryptopp/oids.h"
 #include "cryptopp/files.h"
 #include <iostream>
+#include <sstream>
 using namespace CryptoPP;
 
 class Decrypt {
     private:
         std::string encryptedtext;
 	std::string PrivateKeyString;
+	std::string PublicKeyString1;
+	std::string PublicKeyString2;
         std::string plaintext;
         std::string DecryptorfilePublic = "ECIES_PublicKey.key"; //Chemin vers le fichier de stockage de la cle publique
         std::string DecryptorfilePrivate = "ECIES_PrivateKey.key"; //Chemin vers le fichier de stockage de la cle privee
@@ -115,16 +118,36 @@ class Decrypt {
     		std::cout << "Public Point" << std::endl;
     		std::cout << "  x: " << std::hex << point.x << std::endl;
     		std::cout << "  y: " << std::hex << point.y << std::endl;
+		std::stringstream ss1;
+		ss1 << std::hex << point.x;
+		std::stringstream ss2;
+		ss2 << std::hex << point.y;
+		PublicKeyString1 = ss1.str();
+		PublicKeyString2 = ss2.str();
 
     		std::cout << "Private Exponent (multiplicand): " << std::endl;
     		std::cout << "  " << std::hex << key.GetPrivateExponent() << std::endl;
-		//PrivateKeyString = key.GetPrivateExponent();
+		std::stringstream ss;
+		ss << std::hex << key.GetPrivateExponent();
+		PrivateKeyString = ss.str();
+	}
+
+	std::string GetPrivateKeyString(){
+		return PrivateKeyString;
 	}
 	
+	std::string GetPublicKeyString1(){
+		return PublicKeyString1;
+	}
+
+	std::string GetPublicKeyString2(){
+		return PublicKeyString2;
+	}
+
 	void PrintPublicKey()
 	{
 		// Group parameters
-		ECIES < ECP > :: PublicKey key = GetPublicKey()
+		ECIES < ECP > :: PublicKey key = GetPublicKey();
     		const DL_GroupParameters_EC<ECP>& params = key.GetGroupParameters();
     		// Public key
     		const ECPPoint& point = key.GetPublicElement();
@@ -161,5 +184,8 @@ PYBIND11_MODULE(decrypt, greetings) {
         .def("PrintPrivateKey", & Decrypt::PrintPrivateKey)
 	.def("GetPrivateKey", & Decrypt::GetPrivateKey)
 	.def("PrintPublicKey", & Decrypt::PrintPublicKey)
+	.def("GetPrivateKeyString", & Decrypt::GetPrivateKeyString)
+	.def("GetPublicKeyString1", & Decrypt::GetPublicKeyString1)
+	.def("GetPublicKeyString2", & Decrypt::GetPublicKeyString2)
         .def("DecryptText", & Decrypt::DecryptText);
 }
