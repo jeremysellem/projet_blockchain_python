@@ -117,13 +117,11 @@ PYBIND11_MODULE(decrypt, greetings) {
     greetings.doc() = "decrypt 1.0";
     py::class_ < Decrypt > (greetings, "Decrypt", py::dynamic_attr())
         .def(py::init())
-        .def("LoadPublicKey", & Decrypt::LoadPublicKey)
         .def("GetPublicFile", & Decrypt::getPublicFile)
         .def("LoadPrivateKey", & Decrypt::LoadPrivateKey)
         .def("SavePublicKey", & Decrypt::SavePublicKey)
         .def("SavePriavteKey", & Decrypt::SavePrivateKey)
     	.def("GenerateKeys", & Decrypt::Generate_keys)
-    	.def("Encrypt", & Decrypt::Encrypt)
         .def("SetEncryptedMessage", & Decrypt::setEncryptedMessage)
         .def("PrintPrivateKey", & Decrypt::PrintPrivateKey)
         .def("DecryptText", & Decrypt::DecryptText);
