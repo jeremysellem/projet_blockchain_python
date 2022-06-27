@@ -31,7 +31,7 @@ class Decrypt {
         ECIES < ECP > ::Encryptor e0;
         std::string em0; // Encrypted message
         std::string dm0; // Decrypted message
-    
+
     public:
         Decrypt() {}
         ~Decrypt() {}
@@ -86,7 +86,9 @@ class Decrypt {
 		return publicKey;
 	}
 
-        void DecryptText(){
+        void DecryptText(std::string message){
+	    std::string em0;
+	    StringSource ss4(message, true, new HexDecoder(new StringSink(em0)));
             ECIES < ECP > ::Decryptor d0(privateKey);
             
             StringSource ss2(em0, true, new PK_DecryptorFilter(prng, d0, new StringSink(dm0)));
